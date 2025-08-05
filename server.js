@@ -225,6 +225,17 @@ The case study content provides relevant information to address your specific qu
     return analysis;
 }
 
+// Debug endpoint to check environment variables
+app.get('/debug', (req, res) => {
+    res.json({
+        message: 'Server is running',
+        apiKeyExists: !!process.env.GROK_API_KEY,
+        apiKeyLength: process.env.GROK_API_KEY ? process.env.GROK_API_KEY.length : 0,
+        nodeEnv: process.env.NODE_ENV,
+        timestamp: new Date().toISOString()
+    });
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
