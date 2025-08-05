@@ -143,6 +143,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Harvard Business School for case study methodology
 - XAI for providing the Grok AI API
 - The open-source community for inspiration and tools
+- Made with Cursor and a lot of support from ChatGPT
 
 ## 📞 Support
 
@@ -150,4 +151,4 @@ If you encounter any issues or have questions, please open an issue on GitHub.
 
 ---
 
-**Made with ❤️ for business education and professional development** 
+**Made with ❤️ for higher education, professional development and lifelong learning** 
