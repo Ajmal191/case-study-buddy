@@ -4,7 +4,7 @@ A web application for generating Harvard Business School-style case studies with
 
 ## ✨ Features
 
-- **AI-Powered Case Study Generation** - Create professional case studies using Grok AI
+- **AI-Powered Case Study Generation** - Create professional case studies using Grok AI API
 - **Harvard Business School Format** - Structured case studies with Title, Abstract, Context, Protagonist, Dilemma, Teaching Objectives, and Discussion Questions
 - **Reflection Mode** - Get personalized coaching questions to prepare for case discussions
 - **PDF Export** - Download case studies as professional PDFs
