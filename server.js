@@ -229,13 +229,12 @@ The case study content provides relevant information to address your specific qu
 app.get('/debug', (req, res) => {
     res.json({
         message: 'Server is running',
-        apiKeyExists: !!process.env.GROK_API_KEY,
-        apiKeyLength: process.env.GROK_API_KEY ? process.env.GROK_API_KEY.length : 0,
+        apiKeyExists: !!process.env.XAI_API_KEY,
+        apiKeyLength: process.env.XAI_API_KEY ? process.env.XAI_API_KEY.length : 0,
         nodeEnv: process.env.NODE_ENV,
         timestamp: new Date().toISOString(),
-        allEnvVars: Object.keys(process.env).filter(key => key.includes('API') || key.includes('GROK') || key.includes('XAI')),
+        allEnvVars: Object.keys(process.env).filter(key => key.includes('API') || key.includes('XAI')),
         envVarValues: {
-            GROK_API_KEY: process.env.GROK_API_KEY ? 'EXISTS' : 'NOT FOUND',
             XAI_API_KEY: process.env.XAI_API_KEY ? 'EXISTS' : 'NOT FOUND',
             NODE_ENV: process.env.NODE_ENV,
             PORT: process.env.PORT
