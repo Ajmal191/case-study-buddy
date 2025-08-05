@@ -39,6 +39,8 @@ app.get('/', (req, res) => {
 app.post("/generate", async (req, res) => {
   const { scenario, tone, focus, industry } = req.body;
 
+  console.log('Generate request received:', { scenario: scenario?.substring(0, 50) + '...', tone, focus, industry });
+
   // Check if API key is available
   if (!XAI_API_KEY) {
     console.error('XAI_API_KEY not found in environment variables');
@@ -51,11 +53,26 @@ app.post("/generate", async (req, res) => {
 
   try {
     console.log('Making request to XAI API...');
-    console.log('Request payload:', {
-      model: 'x-1',
+    const prompt = buildPrompt(scenario, tone, focus, industry);
+    console.log('Prompt length:', prompt.length);
+    
+    const requestBody = {
+      model: 'grok-2',
+      messages: [
+        {
+          role: 'user',
+          content: prompt
+        }
+      ],
       max_tokens: 1200,
-      temperature: 0.7,
-      message_length: buildPrompt(scenario, tone, focus, industry).length
+      temperature: 0.7
+    };
+    
+    console.log('Request payload:', {
+      model: requestBody.model,
+      max_tokens: requestBody.max_tokens,
+      temperature: requestBody.temperature,
+      message_length: prompt.length
     });
 
     const response = await fetch('https://api.x.ai/v1/chat/completions', {
@@ -64,17 +81,7 @@ app.post("/generate", async (req, res) => {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${XAI_API_KEY}`
       },
-      body: JSON.stringify({
-        model: 'grok-2',
-        messages: [
-          {
-            role: 'user',
-            content: buildPrompt(scenario, tone, focus, industry)
-          }
-        ],
-        max_tokens: 1200,
-        temperature: 0.7
-      })
+      body: JSON.stringify(requestBody)
     });
 
     console.log('Response status:', response.status);
@@ -95,7 +102,7 @@ app.post("/generate", async (req, res) => {
     }
 
     const data = await response.json();
-    console.log('XAI API Response received');
+    console.log('XAI API Response received successfully');
     res.json({ output: data.choices[0].message.content.trim() });
   } catch (err) {
     console.error('Generate error:', err);
